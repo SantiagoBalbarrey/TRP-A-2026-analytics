@@ -1,0 +1,19 @@
+{
+  "season": "2026",
+  "name_fixes": {"COMERCIAL LOCAL": "COMERCIAL"},
+  "score_overrides": [
+    {"fecha": "F2",  "codigo": "CRCMDP",   "local": 22, "visitante": 38},
+    {"fecha": "F5",  "codigo": "LCRSIR",   "local": 31, "visitante": 19},
+    {"fecha": "F9",  "codigo": "SPTLCR",   "local": 54, "visitante": 22},
+    {"fecha": "F10", "codigo": "CRCSPV",   "local": 29, "visitante": 23},
+    {"fecha": "F10", "codigo": "LCRCUMDP", "local": 12, "visitante": 52},
+    {"fecha": "F10", "codigo": "SIRSPT",   "local": 22, "visitante": 44},
+    {"fecha": "F13", "codigo": "CUMDPMDP", "local": 20, "visitante": 15}
+  ],
+  "incomplete_matches": [{"fecha_n": 1, "contiene": "COMERCIAL_ARGENTIN"}],
+  "times_workbook": "config/tiempos_2026.xlsx",
+  "official_points": {
+    "MAR DEL PLATA": 56, "SPORTING": 54, "UNI DE MAR DEL PLATA": 43, "SPORTIVA": 41,
+    "COMERCIAL": 38, "LOS CARDOS": 22, "SAN IGNACIO": 11, "ARGENTINO DE BAHIA": 0
+  }
+}

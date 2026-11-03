@@ -37,9 +37,37 @@ CSV files in [`data/2026/`](data/2026):
 | `tabla_posiciones.csv` | Standings |
 
 ## How it's built
-Matches are tagged in LongoMatch. A Python pipeline reads the `.lgm` files, assigns each event to its half, rescales times to 80 minutes of real play while keeping ball-in-play time, and computes team stats per match. The site is a single static HTML page with vanilla JavaScript and SVG charts, hosted on GitHub Pages.
+Matches are tagged in LongoMatch. A Python pipeline turns the `.lgm` files into the CSVs and the page:
 
-*The pipeline code will be added to this repository.*
+| Step | Script | What it does |
+|---|---|---|
+| 1 | `src/parse_lgm.py` | Reads the `.lgm` files (JSON) and their events |
+| 2 | `src/detect_halves.py` | Optional helper: suggests where each half starts, to review in `config/tiempos_2026.xlsx` |
+| 3 | `src/build_events.py` | Normalises event names and tags, assigns each event to its half |
+| 4 | `src/rescale.py` | Rescales each half to 40 min of real play, keeping ball-in-play time intact |
+| 5 | `src/stats.py` | Team stats per match and standings (4/2/0 + bonus points) |
+| 6 | `src/export_csv.py` | Writes the 4 CSVs to `data/2026/` |
+| 7 | `src/build_site.py` | Builds `docs/index.html` (static page, vanilla JavaScript and SVG charts) |
+
+Season-specific settings (name fixes, manual score corrections, official points, incomplete matches) live in `config/2026.json`.
+
+### Run it
+```bash
+pip install -r requirements.txt
+# put the .lgm files in input/lgm/  (or set TRPA_LGM_DIR)
+python src/run_all.py
+```
+The `.lgm` files and videos are not part of this repository.
+
+## Structure
+```
+config/   season settings and the reviewed half-start times
+src/      pipeline scripts
+site/     page templates and club crests
+data/     CSV per season
+docs/     published page (GitHub Pages)
+assets/   screenshots for this README
+```
 
 ## Data notes
 - Times are normalised to 80 minutes; out-of-play time = 80 min minus BIP.
