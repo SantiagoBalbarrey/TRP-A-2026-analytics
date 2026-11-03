@@ -7,6 +7,7 @@
 ![Overview](assets/overview.jpg)
 
 ## What you can do
+- **Spanish / English:** a button in the menu switches the whole page between languages.
 - **Overview:** league table, tournament leaders and key numbers.
 - **Teams:** a profile per club with radar chart, possession and territory, set pieces, discipline and where tries come from.
 - **Compare:** any two teams head to head, stat by stat.
@@ -47,7 +48,7 @@ Matches are tagged in LongoMatch. A Python pipeline turns the `.lgm` files into 
 | 4 | `src/rescale.py` | Rescales each half to 40 min of real play, keeping ball-in-play time intact |
 | 5 | `src/stats.py` | Team stats per match and standings (4/2/0 + bonus points) |
 | 6 | `src/export_csv.py` | Writes the 4 CSVs to `data/2026/` |
-| 7 | `src/build_site.py` | Builds `docs/index.html` (static page, vanilla JavaScript and SVG charts) |
+| 7 | `src/build_site.py` | Builds `docs/index.html` (static page, vanilla JavaScript and SVG charts, Spanish and English) |
 
 Season-specific settings (name fixes, manual score corrections, official points, incomplete matches) live in `config/2026.json`.
 
