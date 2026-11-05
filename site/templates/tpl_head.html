@@ -1,4 +1,4 @@
-<title>TRP A 2026</title>
+<title>TRP A @@SEASON@@</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
@@ -49,6 +49,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .nav button.t[aria-pressed="true"]{color:#fff;border-bottom-color:var(--gold)}
 .nav button.t:hover{color:#fff}
 .nav .sp{flex:1}
+.nav .tools{display:flex;align-items:center;gap:6px;position:sticky;right:0;padding-left:10px;background:var(--hdr)}
 .nav .th{background:none;border:1px solid #ffffff30;color:#cfdcec;border-radius:4px;padding:4px 10px;margin:9px 0;font:600 12px var(--fb);align-self:center}
 main{padding-block:24px 40px}
 .view[hidden]{display:none}
@@ -165,12 +166,37 @@ svg text{font-family:var(--fb)}
 .lg i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:5px;vertical-align:-1px}
 .ft{border-top:1px solid var(--line);padding-block:22px 40px;color:var(--mut);font-size:13px}
 .ft p{margin:0 0 6px;max-width:80ch}
+.seas{display:flex;gap:6px;margin:2px 0 14px}
+.seas button{background:#ffffff14;border:1px solid #ffffff40;color:#e6eefb;border-radius:999px;padding:6px 18px;font:700 16px var(--fd);letter-spacing:.06em}
+.seas button[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
+.cmodes{margin-bottom:14px}
+.tchips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.tchips button{display:flex;align-items:center;gap:8px;background:var(--surf);border:1px solid var(--line);border-radius:999px;padding:5px 14px 5px 7px;font:600 13px var(--fb)}
+.tchips button[aria-pressed="true"]{border-color:var(--acc);box-shadow:0 0 0 2px var(--acc) inset}
+.mvh{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:10px;padding:16px 8px;border-radius:8px;border:1px solid var(--line);background:var(--surf);box-shadow:var(--shadow);margin-top:6px}
+.mvh .side{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;min-width:0}
+.mvh .side b{font:800 clamp(15px,2.6vw,24px)/1.05 var(--fd);text-transform:uppercase}
+.mm{padding:9px 0;border-bottom:1px solid var(--line)}.mm:last-child{border:0}
+.mm .lab{text-align:center;font:600 12px var(--fb);letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin-bottom:6px}
+.mm .cells{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:10px}
+.mm .cell{text-align:center;min-width:0}
+.mm .cell b{display:block;font:700 22px var(--fd);font-variant-numeric:tabular-nums}
+.mm .cell .bar{height:8px;background:var(--surf2);border-radius:4px;overflow:hidden;margin-top:5px}.mm .cell .bar i{display:block;height:100%}
+.mm .cell:not(.win) b{color:var(--mut)}.mm .cell:not(.win) .bar i{opacity:.38}
+.evopick summary{cursor:pointer;font:700 15px var(--fd);letter-spacing:.06em;text-transform:uppercase;color:var(--acc)}
+.evopick .gtitle.sm{font-size:14px;margin:12px 0 6px;color:var(--mut)}
+table.evt th{white-space:normal;min-width:118px;vertical-align:bottom}table.evt th small{display:block;font-weight:500;color:var(--mut)}
+table.evt td{white-space:nowrap}table.evt .ev{font-variant-numeric:tabular-nums}table.evt .ev b{font-weight:700}
+table.evt th:first-child{text-align:left}table.evt th:nth-child(2){text-align:right}table.evt tbody tr{cursor:default}table.evt tr.clk{cursor:pointer}table.evt tr.clk:hover td{background:var(--surf2)}
+.dl{display:block;font-style:normal;font-size:12px;color:var(--mut)}.dl.up{color:var(--good)}.dl.dn{color:var(--bad)}
+.only{margin-left:8px;font:600 10px var(--fb);letter-spacing:.08em;text-transform:uppercase;color:var(--mut);border:1px solid var(--line);border-radius:999px;padding:2px 7px}
 @media (max-width:560px){
   .hb{grid-template-columns:minmax(70px,100px) 1fr 44px}
   .board{padding:16px 8px}
   .vs{grid-template-columns:1fr auto 1fr;padding:12px 8px}
   .nav button.t{padding:14px 9px;font-size:15px;letter-spacing:.04em}
   .nav .th{padding:4px 7px}
+  .mm .cell b{font-size:17px}.mm .cells{gap:6px}.mvh .side b{font-size:14px}
 }
 @media (prefers-reduced-motion:no-preference){.view{animation:fi .25s ease}@keyframes fi{from{opacity:.55;transform:translateY(4px)}to{opacity:1;transform:none}}}
 </style>

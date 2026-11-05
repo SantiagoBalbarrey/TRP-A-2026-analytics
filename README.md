@@ -1,8 +1,8 @@
-# 🏉 TRP-A 2026 Analytics
+# 🏉 TRP-A Analytics (2025 + 2026)
 
-**Interactive rugby stats centre for the TRP A 2026 tournament** — standings, results, and team / match statistics built from frame-by-frame video analysis.
+**Interactive rugby stats centre for the TRP A tournament (2025 and 2026 seasons)** — standings, results, and team / match statistics built from frame-by-frame video analysis.
 
-### 👉 [Open the live dashboard](https://santiagobalbarrey.github.io/TRP-A-2026-analytics/)
+### 👉 [Open the live dashboard](https://santiagobalbarrey.github.io/TRP-A-analytics/)
 
 ![Overview](assets/overview.jpg)
 
@@ -24,6 +24,7 @@ Some of the less common stats:
 - **Killer instinct:** 22-metre entries and the % that end in points.
 - **Scrums and line-outs won and stolen** (the rival's ball taken), with percentages.
 - **Break lines:** how they end and what follows (pass, ruck, try).
+- **Kick-off reception:** the receiving team's result is the inverse of the kicking team's (restarts are tagged to the kicker), overall and right after scoring.
 - **Launch plays:** how many win or lose the advantage line.
 - **Ball in play (BIP)** and out-of-play time, possession and territory per 5-minute block.
 
@@ -70,6 +71,12 @@ docs/     published page (GitHub Pages)
 assets/   screenshots for this README
 ```
 
+## Seasons
+One page, two seasons: a 2025 / 2026 switch at the top, a **Compare** tab that works within a season (2 to 4 teams) or across seasons (any team + year, including clubs that played only one), and an **Evolution** table in the overview with a selector for any statistic.
+
+- **2026** is built from the `.lgm` files (steps 1-4 above).
+- **2025** starts from the already processed event table (`data/2025/eventos.csv` + `partidos.csv`, 56 matches); `src/from_events.py` replaces steps 1-4, then the same statistics, CSV export and page build run. Use `TRPA_SEASON=2025 python src/run_all.py`.
+
 ## Data notes
 - Times are normalised to 80 minutes; out-of-play time = 80 min minus BIP.
 - Standings use the official points.
@@ -81,4 +88,4 @@ Club crests belong to their clubs and are used only to identify the teams.
 ---
 
 ## 🇦🇷 En español
-Centro de estadísticas del TRP A 2026: tabla de posiciones, resultados y estadísticas por equipo y por partido, a partir del análisis de video. Los datos están en `data/2026/` y la página en vivo está en el link de arriba.
+Centro de estadísticas del TRP A (temporadas 2025 y 2026): tabla de posiciones, resultados y estadísticas por equipo y por partido, a partir del análisis de video. Los datos están en `data/2025/` y `data/2026/`; la página tiene un botón para cambiar de temporada y comparar entre años. y la página en vivo está en el link de arriba.

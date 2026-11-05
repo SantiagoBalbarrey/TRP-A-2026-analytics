@@ -1,0 +1,22 @@
+{
+  "season": "2025",
+  "source": "csv",
+  "name_fixes": {},
+  "score_overrides": [],
+  "incomplete_matches": [{"fecha_n": 11, "contiene": "LOS CARDOS_LOS 50"}],
+  "times_workbook": null,
+  "teams": {
+    "MAR DEL PLATA": {"name": "Mar del Plata Club", "short": "Mar del Plata", "code": "MDP"},
+    "SPORTING": {"name": "IPR Sporting", "short": "Sporting", "code": "SPT"},
+    "UNI DE MAR DEL PLATA": {"name": "Universitario (MDP)", "short": "Universitario", "code": "UNI"},
+    "SPORTIVA": {"name": "Sociedad Sportiva (BB)", "short": "Sportiva", "code": "SPV"},
+    "LOS CARDOS": {"name": "Los Cardos", "short": "Los Cardos", "code": "LCR"},
+    "SAN IGNACIO": {"name": "San Ignacio", "short": "San Ignacio", "code": "SIR"},
+    "BIGUA": {"name": "Biguá", "short": "Biguá", "code": "BIG"},
+    "LOS 50": {"name": "Los 50", "short": "Los 50", "code": "L50"}
+  },
+  "official_points": {
+    "MAR DEL PLATA": 55, "SPORTIVA": 52, "SPORTING": 52, "UNI DE MAR DEL PLATA": 34,
+    "LOS CARDOS": 33, "SAN IGNACIO": 22, "BIGUA": 14, "LOS 50": 6
+  }
+}

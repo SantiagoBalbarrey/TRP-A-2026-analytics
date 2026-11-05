@@ -8,8 +8,8 @@ CFG = json.load(open(os.path.join(ROOT, "config", f"{SEASON}.json"), encoding="u
 LGM_DIR = os.environ.get("TRPA_LGM_DIR", os.path.join(ROOT, "input", "lgm"))
 WORK = os.path.join(ROOT, "work", SEASON)          # archivos intermedios (no se suben a GitHub)
 OUT = os.path.join(ROOT, "data", SEASON)           # CSV finales
-DOCS = os.path.join(ROOT, "docs")                  # página publicada
-TIMES_XLSX = os.path.join(ROOT, CFG["times_workbook"])
+DOCS = os.path.join(ROOT, "docs")                  # página publicada (una sola, con todas las temporadas)
+TIMES_XLSX = os.path.join(ROOT, CFG["times_workbook"]) if CFG.get("times_workbook") else None
 os.makedirs(WORK, exist_ok=True)
 os.makedirs(OUT, exist_ok=True)
 

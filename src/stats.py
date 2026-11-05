@@ -1,4 +1,5 @@
 """Paso 5. Estadísticas por equipo y partido, y tabla de posiciones según reglamento (4/2/0, bonus por 3+ tries de diferencia y por derrota de 7 o menos)."""
+import collections
 import pandas as pd
 import config
 S=config.WORK
@@ -48,6 +49,35 @@ for _,m in M.iterrows():
             r[col]=int(g(tgp,col))
         rows.append(r)
 pm=pd.DataFrame(rows)
+
+# ---- Recepción de la salida (kick-off / reinicio) ----
+# Los eventos SALIDAS están cargados al equipo que PATEA. Quien recibe es el rival, y su resultado es el inverso:
+#   patea y la PIERDE        -> el rival recibe y la ASEGURA
+#   patea y GANA SUCIA       -> el rival no la asegura: el rival la recupera sucia
+#   patea y la GANA          -> el rival no la asegura: el rival la recupera
+# "Tras anotar": la salida que sigue a un score (try o penal) del rival del que patea; recibe quien anotó.
+SCORES=('TRY','TRY PENAL','PENALTY KICK')
+REC={'PERDIDA':'asegurada','GANA SUCIA':'rival_recupera_sucia','GANADA':'rival_recupera'}
+def _resultado(tags):
+    return next((v for g,v in tags if g=='RESULTADO'),None)
+rec={}
+for pid,g in ev[ev.categoria.isin(('SALIDAS',)+SCORES)&ev.mitad.isin(['1T','2T'])].groupby('partido'):
+    last=None; half=None
+    for _,r in g.sort_values(['min_real_inicio','video_inicio_s']).iterrows():
+        if r.mitad!=half: half=r.mitad; last=None
+        if r.categoria in SCORES: last=r.lado; continue
+        kind=REC.get(_resultado(r._tags))
+        if kind:
+            receptor='VISITANTE' if r.lado=='LOCAL' else 'LOCAL'
+            rec.setdefault((pid,receptor),collections.Counter())
+            rec[(pid,receptor)][('recepcion_salida',kind)]+=1
+            if last is not None and last!=r.lado:      # la salida sigue a un score del equipo que ahora recibe
+                rec[(pid,receptor)][('recepcion_tras_score',kind)]+=1
+        last=None
+for pref in ('recepcion_salida','recepcion_tras_score'):
+    for kind in REC.values():
+        pm[f'{pref}_{kind}']=[rec.get((p,c),collections.Counter())[(pref,kind)] for p,c in zip(pm.partido,pm.condicion)]
+    pm[f'{pref}_total']=pm[[f'{pref}_{k}' for k in REC.values()]].sum(axis=1)
 # standings, reglamento URMDP Art.145
 def pts(r):
     o=pm[(pm.partido==r.partido)&(pm.equipo!=r.equipo)].iloc[0]; d=r.PF-r.PC
@@ -57,7 +87,8 @@ def pts(r):
 pm=pd.concat([pm,pm.apply(pts,axis=1)],axis=1)
 st=pm.groupby('equipo').agg(PJ=('partido','count'),G=('resultado',lambda s:(s=='G').sum()),E=('resultado',lambda s:(s=='E').sum()),P=('resultado',lambda s:(s=='P').sum()),
    PF=('PF','sum'),PC=('PC','sum'),tries=('tries','sum'),bonus_tries=('bonus_tries','sum'),bonus_derrota=('bonus_derrota','sum'),Pts=('pts_tabla','sum'))
-st['DIF']=st.PF-st.PC; st=st.sort_values(['Pts','tries'],ascending=False).reset_index(); st.insert(0,'Pos',range(1,9))
+st['DIF']=st.PF-st.PC; st['_ord']=st.index.map(lambda k: config.OFFICIAL_POINTS.get(k, 0)) if config.OFFICIAL_POINTS else st.Pts   # orden según la tabla oficial (desempate: más tries, Art. 147)
+st=st.sort_values(['_ord','tries'],ascending=False).drop(columns='_ord').reset_index(); st.insert(0,'Pos',range(1,9))
 print(st.to_string())
 pm.to_pickle(S+'/pm.pkl'); st.to_pickle(S+'/st.pkl')
 print(pm.shape)
